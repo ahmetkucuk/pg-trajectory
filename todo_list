@@ -1,0 +1,10 @@
+what we need in the first run
+
+supporting functions:
+1. readTrajectory -- either from a file, or from a long text sent to the postgre using the function calls (from jdbc)
+2. addTGPair -- add a time geometry pair to an existing trajectory object
+3. removeTGPair -- remove a time geometry pair using the timestamp key of the TGPair
+4. updateTGPair -- update the geometry of a particular timestamp geometry pair
+5. segmentTrajectory(start_t, end_t) -- get the trajectory segment (which is another trajectory) that starts from parameter start_t and ends in end_t 
+6. intersection(trj1, trj2) -- get the intersection of two trajectories. It returns another trajectory
+7. union(trj1, trj2) -- get the union of two trajectories. It returns another trajectory
