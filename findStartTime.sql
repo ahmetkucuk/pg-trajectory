@@ -18,7 +18,7 @@ BEGIN
     --TODO check null condition here
 
     --RAISE NOTICE 'my timestamp --> %', tgpairs[1].t;
-    startTime := tgpairs[2].t;
+    startTime := tgpairs[1].t;
 
     FOREACH tgp IN ARRAY tgpairs
     LOOP
