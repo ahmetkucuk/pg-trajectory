@@ -1,13 +1,12 @@
-DROP TYPE IF EXISTS tg_pair;
+DROP TYPE IF EXISTS tg_pair CASCADE;
 CREATE TYPE tg_pair AS ( -- timestamp-geometry pair type
     t timestamp,
     g geometry
 );
 
-DROP TYPE IF EXISTS trajectory;
-DROP TYPE IF EXISTS trajectory;
+DROP TYPE IF EXISTS trajectory CASCADE;
 CREATE TYPE trajectory AS ( --trajectory data type
-    id      integer --trajectory identifier
+    id      integer, --trajectory identifier
     s_time  timestamp, --start time
     e_time  timestamp, --end time
     bbox    geometry(polygon), --spatial bounding box
