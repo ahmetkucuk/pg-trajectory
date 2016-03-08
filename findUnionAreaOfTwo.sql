@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS findUnionOfTwo(integer, integer);
-CREATE OR REPLACE FUNCTION findUnionOfTwo(tr_id1 integer, tr_id2 integer) RETURNS float AS
+DROP FUNCTION IF EXISTS findUnionAreaOfTwo(integer, integer);
+CREATE OR REPLACE FUNCTION findUnionAreaOfTwo(tr_id1 integer, tr_id2 integer) RETURNS float AS
 $BODY$
 DECLARE
     tgp1 tg_pair;

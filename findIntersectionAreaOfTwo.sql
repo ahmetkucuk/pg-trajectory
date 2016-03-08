@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS findIntersectionOfTwo(integer, integer);
-CREATE OR REPLACE FUNCTION findIntersectionOfTwo(tr_id1 integer, tr_id2 integer) RETURNS float AS
+DROP FUNCTION IF EXISTS findIntersectionAreaOfTwo(integer, integer);
+CREATE OR REPLACE FUNCTION findIntersectionAreaOfTwo(tr_id1 integer, tr_id2 integer) RETURNS float AS
 $BODY$
 DECLARE
     tgp1 tg_pair;
