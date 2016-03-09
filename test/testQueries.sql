@@ -17,5 +17,6 @@ select t_jaccard(t1.tr,t2.tr)
 select t_jaccard_star(t1.tr,t2.tr)
     from t_table t1, t_table t2 WHERE (t2.tr).id = 4 AND (t1.tr).id = 6;
 
-select t_jaccard(t1.tr,t2.tr) as jaccard, t_jaccard_star(t1.tr,t2.tr) as jaccardStart
-    from t_table t1, t_table t2;
+select t_jaccard(t1.tr, t2.tr, t3.tr) as jaccard, t_jaccard_star(t1.tr, t2.tr, t3.tr) as jaccard_star
+    from t_table t1, t_table t2, t_table t3;
+
