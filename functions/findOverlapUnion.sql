@@ -20,10 +20,12 @@ BEGIN
     LOOP
       g = t_record_at(tr2, tgp.t);
       if g IS NOT NULL THEN
+        if ST_intersects(tgp.g, g) THEN
             temp_pair.t := tgp.t;
             temp_pair.g := ST_Union(tgp.g, g);
             union_pairs[index_of_union] := temp_pair;
             index_of_union = index_of_union + 1;
+        END IF;
       END IF;
     END LOOP;
 
