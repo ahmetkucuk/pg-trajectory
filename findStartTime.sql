@@ -13,7 +13,7 @@ BEGIN
     from test_tr
     where id = tr_id;
     if not found then
-	raise exception 'trajectory id % not found', 2;
+	raise exception 'trajectory id % not found', tr_id;
     end if;
     --TODO check null condition here
 
