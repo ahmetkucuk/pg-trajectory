@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS t_overlap_union(trajectory, trajectory);
-CREATE OR REPLACE FUNCTION t_overlap_union(tr1 trajectory, tr2 trajectory) RETURNS trajectory AS
+DROP FUNCTION IF EXISTS t_ts_union(trajectory, trajectory);
+CREATE OR REPLACE FUNCTION t_ts_union(tr1 trajectory, tr2 trajectory) RETURNS trajectory AS
 $BODY$
 DECLARE
     tgp tg_pair;

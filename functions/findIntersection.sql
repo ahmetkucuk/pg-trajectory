@@ -6,7 +6,6 @@ DECLARE
     tgp2 tg_pair;
     temp_pair tg_pair;
     area float;
-    isFound bool;
     tgpairs1 tg_pair[];
     tgpairs2 tg_pair[];
     intersecting_pairs tg_pair[];
@@ -14,10 +13,8 @@ DECLARE
     endTime timestamp;
     result trajectory;
 BEGIN
-    --TODO check null condition here
 
     --For Jaccard calculation
-    isFound = false;
     indexOfIntersection = 0;
     --RAISE NOTICE 'my timestamp --> %', tgpairs[1].t;
     area = 0;

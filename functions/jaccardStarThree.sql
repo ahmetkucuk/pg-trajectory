@@ -8,10 +8,12 @@ DECLARE
   t3 trajectory;
 BEGIN
   intersection_area = t_area(t_intersection(t_intersection(tr1, tr2),tr3));
-
-  t1 = t_overlap_union(tr1, tr2);
-  t2 = t_overlap_union(tr1, tr3);
-  t3 = t_overlap_union(tr2, tr3);
+  --t_ts_union -> union in time and space
+  --t_time_union union in time
+  --if tr1 and tr2 intersect both in time and space get time stamp of tr3 where tr1 and tr2 intersects
+  t1 = t_time_union(t_ts_union(tr1, tr2), tr3);
+  t2 = t_time_union(t_ts_union(tr1, tr3), tr2);
+  t3 = t_time_union(t_ts_union(tr2, tr3), tr1);
 
   RETURN intersection_area / t_area(t_union(t_union(t1, t2), t3));
 END
