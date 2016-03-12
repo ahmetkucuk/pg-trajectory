@@ -11,17 +11,7 @@ DECLARE
     union_tr trajectory;
 BEGIN
 
-
-    if tr1.tr_data ISNULL OR tr2.tr_data ISNULL THEN
-
-      union_tr.id = 25;
-      union_tr.tr_data = union_pairs;
-      RETURN union_tr;
-    END IF;
-
-    if tr2.tr_data IS NULL  THEN
-
-      union_tr.id = 25;
+    if tr1 ISNULL OR tr2 ISNULL OR tr1.tr_data ISNULL OR tr2.tr_data ISNULL THEN
       union_tr.tr_data = union_pairs;
       RETURN union_tr;
     END IF;

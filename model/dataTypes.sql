@@ -24,7 +24,7 @@ BEGIN
     t.bbox = findMbr($2);
     t.e_time = findendtime($2);
     t.s_time = findstarttime($2);
-    t.tr_data = $2;
+    t.tr_data = array_sort($2);
     RETURN t;
 END
 $BODY$

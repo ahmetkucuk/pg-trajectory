@@ -11,9 +11,32 @@ DECLARE
     intersecting_pairs tg_pair[];
     indexOfIntersection integer;
     endTime timestamp;
+    startTime timestamp;
     result trajectory;
+    stepSize INTERVAL;
 BEGIN
+    if tr1 ISNULL OR tr2 ISNULL OR tr1.tr_data ISNULL OR tr2.tr_data ISNULL THEN
+      union_tr.tr_data = union_pairs;
+      RETURN union_tr;
+    END IF;
 
+    stepSize = t_sampling_interval(tr1, tr2);
+
+    startTime = LEAST(tr1.s_time, tr2.s_time);
+    endTime = GREATEST(tr1.e_time, tr2.e_time);
+    if endTime < startTime THEN
+      union_tr.tr_data = union_pairs;
+      RETURN union_tr;
+    END IF;
+
+
+
+    WHILE endTime <= startTime LOOP
+            temp_pair.t = tgp1.t;
+            temp_pair.g := st_intersection(tgp1.g, tgp2.g);
+            intersecting_pairs[indexOfIntersection] := temp_pair;
+            indexOfIntersection = indexOfIntersection + 1;
+    END LOOP;
     --For Jaccard calculation
     indexOfIntersection = 0;
     --RAISE NOTICE 'my timestamp --> %', tgpairs[1].t;

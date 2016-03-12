@@ -15,10 +15,10 @@ BEGIN
   FOR i IN 1..arr_length LOOP
     FOR j in i..arr_length LOOP
       RAISE NOTICE '%', (i*j);
-      IF tg_pair[i] > tg_pair[j] THEN
-        temp_pair := tg_pair[i];
-        tg_pair[i] := tg_pair[j];
-        tg_pair[j] := temp_pair;
+      IF tr_data[i] > tr_data[j] THEN
+        temp_pair := tr_data[i];
+        tr_data[i] := tr_data[j];
+        tr_data[j] := temp_pair;
       END IF;
     END LOOP;
   END LOOP;

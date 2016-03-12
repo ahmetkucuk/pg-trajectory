@@ -155,7 +155,6 @@ ARRAY[
 ]::tg_pair[]
 ));
 
-select _trajectory(34);
 insert into trajectory_table(tr) VALUES( (_trajectory(35,
 ARRAY[
   ROW( to_timestamp(10), ST_GeomFromText('POLYGON((10 0, 10 1, 11 1, 11 0, 10 0))') )::tg_pair,
@@ -164,12 +163,14 @@ ARRAY[
   ROW( to_timestamp(40), ST_GeomFromText('POLYGON((17 0, 17 1, 18 1, 18 0, 17 0))') )::tg_pair
 ]::tg_pair[])));
 
-select _trajectory(34);
-insert into trajectory_table(tr) VALUES( (_trajectory(65,
-sort(ARRAY[
+insert into trajectory_table(tr) VALUES( (_trajectory(210,
+tgp_sort(ARRAY[
   ROW( to_timestamp(90), ST_GeomFromText('POLYGON((10 0, 10 1, 11 1, 11 0, 10 0))') )::tg_pair,
   ROW( to_timestamp(20), ST_GeomFromText('POLYGON((13 0, 13 1, 14 1, 14 0, 13 0))') )::tg_pair,
-  ROW( to_timestamp(30), ST_GeomFromText('POLYGON((15 0, 15 1, 16 1, 16 0, 15 0))') )::tg_pair,
+  ROW( to_timestamp(3200), ST_GeomFromText('POLYGON((15 0, 15 1, 16 1, 16 0, 15 0))') )::tg_pair,
+  ROW( to_timestamp(100), ST_GeomFromText('POLYGON((17 0, 17 1, 18 1, 18 0, 17 0))') )::tg_pair,
   ROW( to_timestamp(40), ST_GeomFromText('POLYGON((17 0, 17 1, 18 1, 18 0, 17 0))') )::tg_pair
 ])::tg_pair[])));
-select * from trajectory_table;
+select unnest((t1.tr).tr_data) from trajectory_table as t1 WHERE (t1.tr).id = 210;
+
+select unnest((t1.tr).tr_data) from trajectory_table as t1 WHERE (t1.tr).id = 105;
