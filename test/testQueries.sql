@@ -20,7 +20,7 @@ select t_jaccard_star(t1.tr,t2.tr)
 select *, (jaccard_star - jaccard) as diff from (
     select (t1.tr).id, (t2.tr).id, (t3.tr).id, t_jaccard(t1.tr, t2.tr, t3.tr) as jaccard,
         t_jaccard_star(t1.tr, t2.tr, t3.tr) as jaccard_star from
-        trajectory_table t1, trajectory_table t2, trajectory_table t3) as j;
+        trajectory_table t1, trajectory_table t2, trajectory_table t3 WHERE (t1.tr).id = 4 AND (t2.tr).id = 4 AND (t3.tr).id = 35) as j;
 
 
 select *, (jaccard_star - jaccard) as diff from (
