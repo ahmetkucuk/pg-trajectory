@@ -29,29 +29,65 @@ BEGIN
 
   stepSize = t_sampling_interval(tr1, tr2);
   RAISE NOTICE '%', stepSize;
+  IF stepSize = '-1 seconds'::INTERVAL THEN --then it means both of them have only one time-geo pair
+    tgp1 := tr1.tr_data [1];
+    RAISE NOTICE '%', tgp1;
+    tgp2 := tr2.tr_data [1];
+    RAISE NOTICE '%', tgp1;
+    indexOfIntersection = 0;
+    IF tgp1.t = tgp2.t THEN
+      temp_pair.t = tgp1.t;
+      temp_pair.g := st_intersection(tgp1.g, tgp2.g);
+      intersecting_pairs [indexOfIntersection] := temp_pair;
+    END IF;
+    result.id = 25;
+    result.tr_data = intersecting_pairs;
+    RETURN result;
+  END IF;
+
+
   stepSizeLong := EXTRACT(EPOCH FROM stepSize);
-  RAISE NOTICE '%', stepSizeLong;
+  RAISE NOTICE 'long step size -> %', stepSizeLong;
 
 
   startTime = GREATEST(tr1.s_time, tr2.s_time);
   endTime = LEAST(tr1.e_time, tr2.e_time);
-  IF endTime < startTime
-  THEN
-  --union_tr.tr_data = union_pairs;
-  --RETURN union_tr;
-  ELSE
+  IF endTime >= startTime THEN
     RAISE NOTICE 'ss - %', (tr2.s_time - startTime);
     startIndex1 := abs(extract(EPOCH FROM (tr1.s_time - startTime))) / stepSizeLong;
-    startIndex2 := abs(extract(EPOCH FROM (tr2.s_time - startTime))) / stepSizeLong;
-    RAISE NOTICE 'st2 - %', startIndex2;
     endIndex1 := abs(extract(EPOCH FROM (tr1.e_time - startTime))) / stepSizeLong;
+
+    startIndex2 := abs(extract(EPOCH FROM (tr2.s_time - startTime))) / stepSizeLong;
     endIndex2 := abs(extract(EPOCH FROM (tr2.e_time - startTime))) / stepSizeLong;
 
-    RAISE NOTICE 'st2 - %', endIndex2;
+  IF tr1.s_time = tr1.e_time OR tr2.s_time = tr2.e_time THEN
+    endIndex1 = startIndex1;
+    endIndex2 = startIndex2;
   END IF;
 
-  RAISE NOTICE 'e- s = %', (endIndex1 - startIndex1);
+    RAISE NOTICE 'startIndex1 - %', startIndex1;
+    RAISE NOTICE 'startIndex2 - %', startIndex2;
+    RAISE NOTICE 'endIndex1 - %', endIndex1;
+    RAISE NOTICE 'endIndex2 - %', endIndex2;
+  END IF;
 
+  RAISE NOTICE 'e1 - s1 = %', (endIndex1 - startIndex1);
+  RAISE NOTICE 'e2 - s2 = %', (endIndex2 - startIndex2);
+  IF  (endIndex1 - startIndex1) = 0 THEN --then there is only one time-geo pair that starts at start indices
+    tgp1 := tr1.tr_data [1];
+    RAISE NOTICE '%', tgp1;
+    tgp2 := tr2.tr_data [1];
+    RAISE NOTICE '%', tgp1;
+    indexOfIntersection = 0;
+    IF tgp1.t = tgp2.t THEN
+      temp_pair.t = tgp1.t;
+      temp_pair.g := st_intersection(tgp1.g, tgp2.g);
+      intersecting_pairs [indexOfIntersection] := temp_pair;
+    END IF;
+    result.id = 25;
+    result.tr_data = intersecting_pairs;
+    RETURN result;
+  END IF;
 
   indexOfIntersection = 0;
   FOR i IN 1..(endIndex1 - startIndex1) LOOP
@@ -68,16 +104,6 @@ BEGIN
 
   END LOOP;
 
-  --WHILE endTime <= startTime LOOP
-  --  temp_pair.t = tgp1.t;
-  --  temp_pair.g := st_intersection(tgp1.g, tgp2.g);
-  --  intersecting_pairs [indexOfIntersection] := temp_pair;
-  --  indexOfIntersection = indexOfIntersection + 1;
-  --END LOOP;
-  --For Jaccard calculation
-
-  --RAISE NOTICE 'my timestamp --> %', tgpairs[1].t;
-
   result.id = 25;
   result.tr_data = intersecting_pairs;
   RETURN result;
@@ -87,4 +113,4 @@ LANGUAGE 'plpgsql';
 
 SELECT t_intersection(t1.tr, t2.tr)
 FROM trajectory_table t1, trajectory_table t2
-WHERE (t2.tr).id = 213 AND (t1.tr).id = 212;
+WHERE (t2.tr).id = 216 AND (t1.tr).id = 217;
