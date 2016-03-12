@@ -15,6 +15,13 @@ BEGIN
     --For Jaccard calculation
 
     index_of_union = 0;
+    if tr1.tr_data ISNULL OR tr2.tr_data ISNULL THEN
+
+      union_tr.id = 25;
+      union_tr.tr_data = union_pairs;
+      RETURN union_tr;
+
+    END IF;
 
     FOREACH tgp IN ARRAY tr1.tr_data
     LOOP

@@ -6,6 +6,9 @@ DECLARE
     tgp tg_pair;
 BEGIN
   area = 0;
+  if tr ISNULL OR tr.tr_data ISNULL THEN
+    return 0;
+  END IF;
   FOREACH tgp IN ARRAY tr.tr_data
     LOOP
       --RAISE NOTICE 'loop timestamp --> %', area;
