@@ -1,21 +1,24 @@
-DROP FUNCTION IF EXISTS t_jaccard(trajectory, trajectory);
-CREATE OR REPLACE FUNCTION t_jaccard(tr1 trajectory, tr2 trajectory) RETURNS float AS
+DROP FUNCTION IF EXISTS t_jaccard( trajectory, trajectory );
+CREATE OR REPLACE FUNCTION t_jaccard(tr1 trajectory, tr2 trajectory)
+  RETURNS FLOAT AS
 $BODY$
 DECLARE
-  intersection_area float;
-  union_area float;
+  intersection_area FLOAT;
+  union_area        FLOAT;
 BEGIN
-    intersection_area = t_area(t_intersection(tr1, tr2));
-    if intersection_area = 0 THEN
-      return 0;
-    END IF;
+  intersection_area = t_area(t_intersection(tr1, tr2));
+  IF intersection_area = 0
+  THEN
+    RETURN 0;
+  END IF;
 
   union_area = t_area(t_union(tr1, tr2));
-  if union_area = 0 THEN
-    return 0;
+  IF union_area = 0
+  THEN
+    RETURN 0;
   END IF;
 
   RETURN intersection_area / union_area;
 END
 $BODY$
-LANGUAGE 'plpgsql' ;
+LANGUAGE 'plpgsql';

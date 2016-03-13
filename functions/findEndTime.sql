@@ -3,7 +3,7 @@ CREATE OR REPLACE FUNCTION findEndTime(tr_data tg_pair[]) RETURNS timestamp AS
 $BODY$
 DECLARE
     tgp tg_pair;
-    endTime timestamp;
+    endTime timestamp WITHOUT TIME ZONE;
 BEGIN
 
     --RAISE NOTICE 'my timestamp --> %', tgpairs[1].t;

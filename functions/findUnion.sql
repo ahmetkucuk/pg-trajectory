@@ -19,7 +19,6 @@ BEGIN
   END IF;
 
   --For Jaccard calculation
-
   index_of_union = 0;
 
   FOREACH tgp IN ARRAY tr1.tr_data
@@ -28,13 +27,13 @@ BEGIN
     IF g IS NOT NULL
     THEN
       --RAISE NOTICE 'loop timestamp --> %', tgp;
-      temp_pair.t := tgp.t;
-      temp_pair.g := ST_Union(tgp.g, g);
-      union_pairs [index_of_union] := temp_pair;
+      temp_pair.t = tgp.t;
+      temp_pair.g = ST_Union(tgp.g, g);
+      union_pairs [index_of_union] = temp_pair;
     END IF;
     IF g IS NULL
     THEN
-      union_pairs [index_of_union] := tgp;
+      union_pairs [index_of_union] = tgp;
     END IF;
     index_of_union = index_of_union + 1;
   END LOOP;
@@ -44,9 +43,9 @@ BEGIN
     g = t_record_at(tr1, tgp.t);
     IF g IS NULL
     THEN
-      temp_pair.t := tgp.t;
-      temp_pair.g := tgp.g;
-      union_pairs [index_of_union] := temp_pair;
+      temp_pair.t = tgp.t;
+      temp_pair.g = tgp.g;
+      union_pairs [index_of_union] = temp_pair;
       index_of_union = index_of_union + 1;
     END IF;
   END LOOP;

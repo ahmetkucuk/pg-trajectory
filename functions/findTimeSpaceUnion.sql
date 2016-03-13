@@ -34,15 +34,18 @@ BEGIN
 
   FOREACH tgp IN ARRAY tr1.tr_data
   LOOP
-    RAISE NOTICE '%', tgp;
+    IF tgp.t > tr2.e_time THEN
+      EXIT;
+    END IF;
+
     g = t_record_at(tr2, tgp.t);
     IF g IS NOT NULL
     THEN
       IF ST_intersects(tgp.g, g)
       THEN
-        temp_pair.t := tgp.t;
-        temp_pair.g := ST_Union(tgp.g, g);
-        union_pairs [index_of_union] := temp_pair;
+        temp_pair.t = tgp.t;
+        temp_pair.g = ST_Union(tgp.g, g);
+        union_pairs [index_of_union] = temp_pair;
         index_of_union = index_of_union + 1;
       END IF;
     END IF;

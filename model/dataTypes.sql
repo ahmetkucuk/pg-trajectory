@@ -1,6 +1,6 @@
 DROP TYPE IF EXISTS tg_pair CASCADE;
 CREATE TYPE tg_pair AS ( -- timestamp-geometry pair type
-    t timestamp,
+    t timestamp WITHOUT TIME ZONE,
     g geometry
 );
 
@@ -8,8 +8,8 @@ CREATE TYPE tg_pair AS ( -- timestamp-geometry pair type
 DROP TYPE IF EXISTS trajectory CASCADE;
 CREATE TYPE trajectory AS (
     id int,
-    s_time TIMESTAMP,
-    e_time TIMESTAMP,
+    s_time TIMESTAMP WITHOUT TIME ZONE,
+    e_time TIMESTAMP WITHOUT TIME ZONE,
     bbox GEOMETRY,
     tr_data tg_pair[]);
 
