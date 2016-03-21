@@ -28,6 +28,15 @@ BEGIN
 
   FOREACH tgp IN ARRAY tr1.tr_data
   LOOP
+    IF tgp.t > tr2.e_time
+    THEN
+      EXIT;
+    END IF;
+
+    IF tgp.t < tr2.s_time
+    THEN
+      CONTINUE;
+    END IF;
     g = t_record_at(tr2, tgp.t);
     IF g IS NOT NULL
     THEN

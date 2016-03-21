@@ -38,6 +38,10 @@ BEGIN
       EXIT;
     END IF;
 
+    IF tgp.t < tr2.s_time THEN
+      CONTINUE;
+    END IF;
+
     g = t_record_at(tr2, tgp.t);
     IF g IS NOT NULL
     THEN

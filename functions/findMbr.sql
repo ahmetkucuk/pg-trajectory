@@ -9,6 +9,9 @@ DECLARE
     mbr geometry;
 BEGIN
 
+    if tr_data ISNULL THEN
+        return mbr;
+    END IF;
     FOREACH tgp IN ARRAY tr_data
     LOOP
         --RAISE NOTICE '%', tgp.t;

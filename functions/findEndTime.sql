@@ -6,6 +6,9 @@ DECLARE
     endTime timestamp WITHOUT TIME ZONE;
 BEGIN
 
+      if tr_data ISNULL THEN
+        return to_timestamp(-1);
+    END IF;
     --RAISE NOTICE 'my timestamp --> %', tgpairs[1].t;
     endTime := tr_data[1].t;
 
