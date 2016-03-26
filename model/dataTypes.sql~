@@ -26,7 +26,7 @@ BEGIN
       RAISE NOTICE 'Mixed geometry type is not allowed';
       RETURN t;
     END IF;
-    t.id = $1;
+    t.id = ($1);
     t.bbox = findMbr($2);
     t.e_time = findendtime($2);
     t.s_time = findstarttime($2);

@@ -9,7 +9,7 @@ DECLARE
     mbr geometry;
 BEGIN
 
-    IF tr_data ISNULL THEN
+    if tr_data ISNULL THEN
         return mbr;
     END IF;
     FOREACH tgp IN ARRAY tr_data
