@@ -65,6 +65,16 @@ SELECT (t.trCol).id, (t.trCol).geom_type FROM generic_trajectory_table AS t;
 
 DELETE FROM generic_trajectory_table AS t WHERE (t.trCol).geom_type = 'Invalid';
 
+SELECT zNormalize((t.trCol).tr_data,2,3) FROM generic_trajectory_table t WHERE (t.trCol).id = 318;
+
+SELECT (t.trCol).id, (t.trCol).geom_type, findTimeLength(t.trCol) AS Duration 
+FROM generic_trajectory_table t 
+WHERE (t.trCol).geom_type = 'Point'; 
+
+SELECT (t1.trCol).id AS traj_1_ID, (t2.trCol).id AS traj_2_ID, EuclideanDistance(t1.trCol, t2.trCol) AS EuclideanDistance
+FROM generic_trajectory_table t1, generic_trajectory_table t2
+WHERE (t1.trCol).id = 48 AND (t2.trCol).id = 67;
+
 
 
 
