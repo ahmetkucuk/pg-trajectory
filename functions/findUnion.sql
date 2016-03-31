@@ -67,7 +67,7 @@ BEGIN
       index_of_union = index_of_union + 1;
     END IF;
   END LOOP;
-  union_tr = _trajectory(25, union_pairs);
+  union_tr = _trajectory(union_pairs);
   RETURN union_tr;
 END
 $BODY$

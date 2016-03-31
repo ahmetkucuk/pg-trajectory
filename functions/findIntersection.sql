@@ -48,7 +48,7 @@ BEGIN
       END IF;
     END LOOP;
   END LOOP;
-  result = _trajectory(25, intersecting_pairs);
+  result = _trajectory(intersecting_pairs);
   RETURN result;
 END
 $BODY$
