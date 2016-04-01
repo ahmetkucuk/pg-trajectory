@@ -5,10 +5,6 @@ $BODY$
 DECLARE
 BEGIN
 
-   IF NOT ((tr1.geom_type) = 'Point' AND (tr2.geom_type) = 'Point') THEN
-    RETURN -1;
-  END IF;
-
   if zNormilized THEN
     --Add z Normilized version here
     RETURN edit_distance_helper(tr1, tr2, e);
@@ -17,7 +13,6 @@ BEGIN
 END
 $BODY$
 LANGUAGE 'plpgsql';
-
 
 DROP FUNCTION IF EXISTS edit_distance_helper( trajectory, trajectory, NUMERIC );
 CREATE OR REPLACE FUNCTION edit_distance_helper(tr1 trajectory, tr2 trajectory, e NUMERIC)
@@ -44,13 +39,11 @@ BEGIN
 
   geom1 = (head(tr1.tr_data)).g;
   geom2 = (head(tr2.tr_data)).g;
-
-  distance = tg_p_distance(geom1, geom2);
   --RAISE NOTICE 'distance %', distance;
 
-  subcost = 0;
-  if distance > e THEN
-    subcost = 1;
+  subcost = 1;
+  if tg_ed_match(geom1, geom2, e) THEN
+    subcost = 0;
   END IF;
 
   RETURN LEAST(LEAST(edit_distance_helper(drop_head(tr1),drop_head(tr2), e) + subcost, edit_distance_helper(drop_head(tr1),tr2, e) + 1), edit_distance_helper(tr1,drop_head(tr2), e) + 1);
