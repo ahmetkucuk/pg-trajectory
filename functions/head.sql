@@ -9,7 +9,7 @@ DECLARE
   tg tg_pair;
 BEGIN
 
-  if coalesce(array_length(tg_pairs, 1), 0) <= 1 THEN
+  if tg_pairs ISNULL THEN
     RETURN tg;
   END IF;
 

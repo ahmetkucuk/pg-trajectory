@@ -5,6 +5,8 @@ $BODY$
 DECLARE
   new_tr_data tg_pair[] := '{}';
   newIndex int;
+  tg tg_pair;
+  isFirst BOOL;
 BEGIN
 
   newIndex = 1;
@@ -12,11 +14,15 @@ BEGIN
     RETURN _trajectory(new_tr_data);
   END IF;
 
+  isFirst = true;
 
-  For i in 2..array_length((tr.tr_data), 1) LOOP
-    new_tr_data := array_append(new_tr_data, (tr.tr_data)[(i - 1)]);
-    newIndex = newIndex + 1;
-  END LOOP;
+  FOREACH tg IN ARRAY tr.tr_data LOOP
+    IF NOT isFirst THEN
+      new_tr_data := array_append(new_tr_data, tg);
+      newIndex = newIndex + 1;
+    END IF;
+    isFirst = false;
+END LOOP;
 
   RETURN _trajectory(new_tr_data);
 END

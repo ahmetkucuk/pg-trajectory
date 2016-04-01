@@ -22,7 +22,7 @@ BEGIN
     
     t.geom_type = getTrajectoryType($1);
     IF t.geom_type = 'Invalid'THEN
-      RAISE NOTICE 'Mixed geometry type is not allowed';
+      --RAISE NOTICE 'Mixed geometry type is not allowed';
       RETURN t;
     END IF;
     t.bbox = findMbr($1);
