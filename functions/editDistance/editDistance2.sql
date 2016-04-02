@@ -28,11 +28,11 @@ BEGIN
   D := array_fill(0, ARRAY[m, n]);
 
   FOR i IN 2..m LOOP
-    D[i][1] := i;
+    D[i][1] := n;
   END LOOP;
 
   FOR j IN 2..n LOOP
-    D[1][j] := j;
+    D[1][j] := m;
   END LOOP;
 
   FOR i IN 2..m LOOP

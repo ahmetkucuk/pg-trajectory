@@ -6,13 +6,15 @@ DECLARE
   intersection_area FLOAT;
   union_area        FLOAT;
 BEGIN
-  intersection_area = t_area(t_intersection(tr1, tr2));
+  intersection_area := t_intersection_area(tr1, tr2);
   IF intersection_area = 0
   THEN
     RETURN 0;
   END IF;
 
-  union_area = t_area(t_ts_union(tr1, tr2));
+  union_area := t_ts_union_area(tr1, tr2);
+  RAISE NOTICE 'intersection_area %', intersection_area;
+  RAISE NOTICE 'union_area %', union_area;
   IF union_area = 0
   THEN
     RETURN 0;

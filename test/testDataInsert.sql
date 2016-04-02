@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS trajectory_table CASCADE;
-CREATE TABLE trajectory_table (tr trajectory);
+CREATE TABLE trajectory_table (id NUMERIC UNIQUE, tr trajectory);
 
 insert into trajectory_table (tr)
 values(
@@ -39,11 +39,14 @@ ARRAY[
   ROW( to_timestamp(50), ST_GeomFromText('POINT(11.7 34.9)') )::tg_pair,
   ROW( to_timestamp(60), ST_GeomFromText('POINT(23.8 -89.0)') )::tg_pair,
   ROW( to_timestamp(70), ST_GeomFromText('POINT(79.1 2.9)') )::tg_pair,
-  ROW( to_timestamp(80), ST_GeomFromText('POINT(21.2 23.5)') )::tg_pair
+  ROW( to_timestamp(80), ST_GeomFromText('POINT(21.2 23.5)') )::tg_pair,
+  ROW( to_timestamp(80), ST_GeomFromText('POINT(121.2 423.5)') )::tg_pair
 ]::tg_pair[])));
 
 select count(*) from trajectory_table;
 
-select t_jaccard(t1.tr, t2.tr, t3.tr) from trajectory_table t1, trajectory_table t2, trajectory_table t3;
+select * from (select t1.id, t2.id, t_jaccard(t1.tr, t2.tr) as jaccard, t_jaccard_star(t1.tr, t2.tr) as jaccard_star from trajectory_table t1, trajectory_table t2 WHERE t1.id <> t2.id) as T WHERE T.jaccard <> 0;
 
-select * from trajectory_table t;
+select count(*) from trajectory_table t;
+
+select t1.id, t2.id, t_jaccard(t1.tr, t2.tr) as jaccard, t_jaccard_star(t1.tr, t2.tr) as jaccard_star from trajectory_table t1, trajectory_table t2 WHERE t1.id = 1000025 AND t2.id = 1000047;

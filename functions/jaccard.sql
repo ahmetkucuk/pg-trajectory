@@ -6,14 +6,14 @@ DECLARE
   intersection_area FLOAT;
   union_area        FLOAT;
 BEGIN
-  intersection_area = t_area(t_intersection(tr1, tr2));
-  IF intersection_area = 0
+  intersection_area := t_intersection_area(tr1, tr2);
+  IF intersection_area = 0.0
   THEN
     RETURN 0;
   END IF;
 
-  union_area = t_area(t_union(tr1, tr2));
-  IF union_area = 0
+  union_area := t_union_area(tr1, tr2);
+  IF union_area = 0.0
   THEN
     RETURN 0;
   END IF;
