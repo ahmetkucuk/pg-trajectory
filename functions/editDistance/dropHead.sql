@@ -18,7 +18,8 @@ BEGIN
 
   FOREACH tg IN ARRAY tr.tr_data LOOP
     IF NOT isFirst THEN
-      new_tr_data := array_append(new_tr_data, tg);
+      --new_tr_data := array_append(new_tr_data, tg);
+      new_tr_data[newIndex] = tg;
       newIndex = newIndex + 1;
     END IF;
     isFirst = false;

@@ -7,18 +7,21 @@ DECLARE
 
   area_of_convexhull FLOAT;
   area_of_union FLOAT;
-  mbr geometry;
+  convex_hull geometry;
 
 BEGIN
 
- g1 := st_convexhull(g1);
+  g1 := st_convexhull(g1);
   g2 := st_convexhull(g2);
   area_of_union := st_area(st_union(g1, g2));
 
-  mbr := st_collect(g1, mbr);
-  mbr := st_collect(g2, mbr);
-  area_of_convexhull := st_area(mbr);
-  RETURN (area_of_union/area_of_convexhull);
+  convex_hull := st_collect(g1, convex_hull);
+  convex_hull := st_collect(g2, convex_hull);
+  area_of_convexhull := st_area(convex_hull);
+
+--  RAISE NOTICE 'abc diff: %', area_of_union;
+
+  RETURN (1 - (area_of_union/area_of_convexhull));
 
 END
 

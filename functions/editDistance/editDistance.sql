@@ -5,6 +5,10 @@ $BODY$
 DECLARE
 BEGIN
 
+  IF tr1.geom_type != tr2.geom_type THEN
+    RETURN -1;
+  END IF;
+
   if zNormilized THEN
     --Add z Normilized version here
     RETURN edit_distance_helper(tr1, tr2, e);
@@ -52,4 +56,5 @@ END
 $BODY$
 LANGUAGE 'plpgsql';
 
-SELECT tg_edit_distance(t1.tr, t2.tr, '1'::NUMERIC, TRUE), (t1.tr).geom_type, (t2.tr).geom_type from trajectory_table t1, trajectory_table t2;
+SELECT tg_edit_distance(t1.tr, t2.tr, '1'::NUMERIC, TRUE), (t1.tr).geom_type, (t2.tr).geom_type from trajectory_table t1, trajectory_table t2 LIMIT 1;
+select findtimelength(t1.tr) from trajectory_table t1;

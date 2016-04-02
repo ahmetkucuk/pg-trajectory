@@ -15,3 +15,5 @@ SELECT edit_distance(t1.tr, t2.tr), (t1.tr).geom_type, (t2.tr).geom_type from tr
 
 SELECT COUNT(*) FROM (SELECT DISTINCT ST_GeometryType((unnest((t1.tr).tr_data)).g) from trajectory_table t1) AS X;
 
+select Count(*) from trajectory_table;
+
