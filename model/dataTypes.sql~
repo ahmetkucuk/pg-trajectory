@@ -30,7 +30,7 @@ BEGIN
     t.e_time = findendtime($1);
     t.s_time = findstarttime($1);
     t.tr_data = array_sort($1);
-    t.sampling_interval = SamplingInterval(t);
+    t.sampling_interval = get_sampling_interval(t);
     RETURN t;
 END
 $BODY$
