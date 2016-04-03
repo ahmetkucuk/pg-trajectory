@@ -73,7 +73,29 @@ WHERE (t.trCol).geom_type = 'Point';
 
 SELECT (t1.trCol).id AS traj_1_ID, (t2.trCol).id AS traj_2_ID, EuclideanDistance(t1.trCol, t2.trCol) AS EuclideanDistance
 FROM generic_trajectory_table t1, generic_trajectory_table t2
-WHERE (t1.trCol).id = 48 AND (t2.trCol).id = 67;
+WHERE (t1.trCol).id = 318 AND (t2.trCol).id = 67;
+
+SELECT (t1.trCol).id AS traj_1_ID, (t2.trCol).id AS traj_2_ID, EuclideanDistance(t1.trCol, t2.trCol) AS EuclideanDistance
+FROM generic_trajectory_table t1, generic_trajectory_table t2
+WHERE (t1.trCol).geom_type = 'Point' AND (t2.trCol).geom_type = 'Point';
+
+
+SELECT (t.trCol).id, (t.trCol).geom_type FROM generic_trajectory_table t;
+
+SELECT * FROM generic_trajectory_table;
+
+--pairwise omax
+SELECT (t1.tr).id AS traj1_id, (t2.tr).id AS traj2_id, t_omax(t1.tr, t2.tr) AS OMAX
+FROM trajectory_table t1, trajectory_table t2
+WHERE (t1.tr).id < (t2.tr).id;
+
+--pairwise all three measures
+SELECT (t1.trCol).id AS traj1_id, (t1.trCol).geom_type AS traj1_type, (t2.trCol).id AS traj2_id, (t2.trCol).geom_type AS traj2_type, 
+t_omax(t1.trCol, t2.trCol) AS OMAX, t_jaccard(t1.trCol, t2.trCol) AS Jaccard, t_jaccard_star(t1.trCol, t2.trCol) AS Jaccard_star
+FROM generic_trajectory_table t1, generic_trajectory_table t2
+WHERE (t1.trCol).id < (t2.trCol).id;
+
+
 
 
 

@@ -11,6 +11,7 @@ CREATE TYPE trajectory AS (
     e_time TIMESTAMP WITHOUT TIME ZONE,
     geom_type TEXT, 
     bbox GEOMETRY,
+    sampling_interval INTERVAL,
     tr_data tg_pair[]);
 
 DROP FUNCTION IF EXISTS _trajectory(tg_pair[]) CASCADE;
@@ -29,6 +30,7 @@ BEGIN
     t.e_time = findendtime($1);
     t.s_time = findstarttime($1);
     t.tr_data = array_sort($1);
+    t.sampling_interval = get_sampling_interval(t);
     RETURN t;
 END
 $BODY$

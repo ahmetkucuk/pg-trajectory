@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS trajectory_table CASCADE;
-CREATE TABLE trajectory_table (id BIGSERIAL, tr trajectory);
+CREATE TABLE trajectory_table (id NUMERIC UNIQUE, tr trajectory);
 
 insert into trajectory_table (tr)
 values(
