@@ -10,7 +10,7 @@ DECLARE
   max_area          FLOAT;
 
 BEGIN
-  intersection_area = t_area(t_intersection(tr1, tr2));
+  intersection_area = t_intersection_area(tr1, tr2);
   
   IF intersection_area = 0
   THEN
