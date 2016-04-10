@@ -1,3 +1,6 @@
+
+select count(*) from trajectory_table;
+
 --TRAJECTORY TO STRING
 SELECT (t.tr).s_time as start_time, (t.tr).e_time as end_time, st_astext((t.tr).bbox) as mbr,
   (t.tr).geom_type as type, get_sampling_interval(t.tr) as step_size
@@ -8,7 +11,7 @@ FROM trajectory_table t;
 SELECT t1.id, t2.id, t_area(t1.tr) as area1, t_area(t2.tr) as area2,
   t_intersection_area(t1.tr, t2.tr) as intersection,
   t_union_area(t1.tr, t2.tr) as union_area
-FROM trajectory_table t1, trajectory_table t2;
+FROM trajectory_table t1, trajectory_table t2 LIMIT 5;
 
 
 --JACCARD - JACCARD STAR - OMAX
