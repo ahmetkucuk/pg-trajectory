@@ -3,11 +3,12 @@ CREATE OR REPLACE FUNCTION findEndTime(tr_data tg_pair[]) RETURNS timestamp AS
 $BODY$
 DECLARE
     tgp tg_pair;
-    endTime timestamp WITHOUT TIME ZONE;
+    endTime timestamp;
 BEGIN
 
-      if tr_data ISNULL THEN
-        return to_timestamp(-1);
+      IF tr_data ISNULL THEN
+        endTime := to_timestamp(-1)::TIMESTAMP;
+        RETURN endTime;
     END IF;
     --RAISE NOTICE 'my timestamp --> %', tgpairs[1].t;
     endTime := tr_data[1].t;

@@ -1,12 +1,12 @@
-DROP FUNCTION IF EXISTS findMbr(tg_pair[]);
+DROP FUNCTION IF EXISTS findMbr(tg_pair[]) CASCADE;
 
 --findMBR:: finds mbr of a particular trajectory specified by the tr_id
 --@param tr_id:: an integer specifying the trajectory identifier
-CREATE OR REPLACE FUNCTION findMbr(tr_data tg_pair[]) RETURNS geometry AS
+CREATE OR REPLACE FUNCTION findMbr(tr_data tg_pair[]) RETURNS GEOMETRY AS
 $BODY$
 DECLARE
     tgp tg_pair;
-    mbr geometry;
+    mbr GEOMETRY;
 BEGIN
 
     IF tr_data ISNULL THEN
