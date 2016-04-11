@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS trajectory_table CASCADE;
 CREATE TABLE trajectory_table of trajectory;
 --alter table trajectory_table
---    add COLUMN id bigserial;
+  --  add COLUMN id bigserial;
 CREATE TABLE id_table (id BIGSERIAL, tr trajectory);
 
 CREATE INDEX spatial_index ON id_table USING GIST (tr.bbox);
