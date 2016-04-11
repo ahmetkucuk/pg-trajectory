@@ -37,8 +37,8 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 
-DROP FUNCTION IF EXISTS _trajectory_2(tg_pair[], REGCLASS) CASCADE;
-CREATE OR REPLACE FUNCTION _trajectory_2(tg_pair[], tableName REGCLASS) RETURNS VOID AS
+DROP FUNCTION IF EXISTS _trajectory_2(tg_pair[]) CASCADE;
+CREATE OR REPLACE FUNCTION _trajectory_2(tg_pair[]) RETURNS VOID AS
 $BODY$
 DECLARE
     geom_type TEXT;
@@ -59,7 +59,6 @@ BEGIN
     s_time = findstarttime($1);
     tr_data = array_sort($1);
     sampling_interval = INTERVAL '-1 seconds'; --get_sampling_interval(t);
-    RAISE NOTICE '%', tableName;
     INSERT INTO trajectory_table (s_time,e_time,geom_type,bbox,sampling_interval,tr_data) VALUES (s_time, e_time, geom_type, bbox, sampling_interval, tr_data);
 END
 $BODY$

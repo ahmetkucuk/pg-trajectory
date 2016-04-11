@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS indexed_trajectory_table CASCADE;
+CREATE TABLE indexed_trajectory_table AS SELECT * from trajectory_table;
+
 DROP TABLE IF EXISTS trajectory_table CASCADE;
 CREATE TABLE trajectory_table of trajectory;
 --alter table trajectory_table
@@ -12,9 +15,7 @@ ARRAY[
   ROW( to_timestamp(20), ST_GeomFromText('POLYGON((13 0, 13 1, 14 1, 14 0, 13 0))') )::tg_pair,
   ROW( to_timestamp(30), ST_GeomFromText('POLYGON((15 0, 15 1, 16 1, 16 0, 15 0))') )::tg_pair,
   ROW( to_timestamp(40), ST_GeomFromText('POLYGON((17 0, 17 1, 18 1, 18 0, 17 0))') )::tg_pair
-]::tg_pair[],
-'trajectory_table'::REGCLASS
-);
+]::tg_pair[]);
 
 INSERT INTO trajectory_table(s_time,e_time,geom_type,bbox,sampling_interval,tr_data) VALUES (
   (SELECT * from _trajectory_2(
