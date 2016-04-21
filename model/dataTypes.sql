@@ -11,7 +11,7 @@ CREATE TYPE trajectory AS (
     e_time TIMESTAMP,
     geom_type TEXT, 
     bbox GEOMETRY,
-    sampling_interval INTERVAL,
+    --sampling_interval INTERVAL,
     tr_data tg_pair[]);
 
 DROP FUNCTION IF EXISTS _trajectory(tg_pair[]) CASCADE;
@@ -30,7 +30,7 @@ BEGIN
     t.e_time = findendtime($1);
     t.s_time = findstarttime($1);
     t.tr_data = array_sort($1);
-    t.sampling_interval = get_sampling_interval(t);
+    --t.sampling_interval = get_sampling_interval(t);
     RETURN t;
 END
 $BODY$
@@ -45,7 +45,7 @@ DECLARE
     s_time TIMESTAMP;
     e_time TIMESTAMP;
     tr_data tg_pair[];
-    sampling_interval INTERVAL;
+    --sampling_interval INTERVAL;
     bbox GEOMETRY;
 BEGIN
 
@@ -58,9 +58,9 @@ BEGIN
     e_time = findendtime($1);
     s_time = findstarttime($1);
     tr_data = array_sort($1);
-    sampling_interval = INTERVAL '-1 seconds'; --get_sampling_interval(t);
-    RAISE NOTICE '%', tableName;
-    INSERT INTO trajectory_table (s_time,e_time,geom_type,bbox,sampling_interval,tr_data) VALUES (s_time, e_time, geom_type, bbox, sampling_interval, tr_data);
+    --sampling_interval = INTERVAL '-1 seconds'; --get_sampling_interval(t);
+    --RAISE NOTICE '%', tableName;
+    INSERT INTO trajectory_table (s_time,e_time,geom_type,bbox,tr_data) VALUES (s_time, e_time, geom_type, bbox, tr_data);
 END
 $BODY$
 LANGUAGE 'plpgsql';

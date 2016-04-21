@@ -56,5 +56,5 @@ END
 $BODY$
 LANGUAGE 'plpgsql';
 
---SELECT tg_edit_distance(t1.tr, t2.tr, '1'::NUMERIC, TRUE), (t1.tr).geom_type, (t2.tr).geom_type from trajectory_table t1, trajectory_table t2 LIMIT 1;
---select findtimelength(t1.tr) from trajectory_table t1;
+SELECT tg_edit_distance(t1.tr, t2.tr, '1'::NUMERIC, TRUE), (t1.tr).geom_type, (t2.tr).geom_type from trajectory_table t1, trajectory_table t2 LIMIT 1;
+select findtimelength(t1.tr) from trajectory_table t1;
