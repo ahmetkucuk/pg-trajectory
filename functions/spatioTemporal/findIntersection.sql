@@ -6,11 +6,7 @@ DECLARE
   tgp1                tg_pair;
   tgp2                tg_pair;
   temp_pair           tg_pair;
-  area                FLOAT;
-  tgpairs1            tg_pair [];
-  tgpairs2            tg_pair [];
   intersecting_pairs  tg_pair [] = '{}';
-  indexOfIntersection INTEGER;
   endTime             TIMESTAMP;
   result              trajectory;
 BEGIN
@@ -33,7 +29,6 @@ BEGIN
   --For Jaccard calculation
   --indexOfIntersection = 1;
   --RAISE NOTICE 'my timestamp --> %', tgpairs[1].t;
-  area = 0;
   FOREACH tgp1 IN ARRAY tr1.tr_data
   LOOP
     FOREACH tgp2 IN ARRAY tr2.tr_data
@@ -42,7 +37,7 @@ BEGIN
       THEN
         temp_pair.t := tgp1.t;
         temp_pair.g := st_intersection(tgp1.g, tgp2.g);
-        intersecting_pairs := array_append(intersecting_pairs, temp_pair);
+        intersecting_pairs := intersecting_pairs || temp_pair;
       END IF;
     END LOOP;
   END LOOP;
