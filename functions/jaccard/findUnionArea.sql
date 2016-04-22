@@ -35,7 +35,7 @@ BEGIN
     IF g IS NULL
     THEN
 
-      RAISE NOTICE 'loop timestamp --> %', area;
+      --RAISE NOTICE 'loop timestamp --> %', area;
       area := area + st_area(tgp.g);
     END IF;
   END LOOP;

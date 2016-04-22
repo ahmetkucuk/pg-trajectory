@@ -5,7 +5,7 @@ DECLARE
   tgp1 tg_pair;
 BEGIN
 
-  PERFORM ASSERT IS NOT NULL tr;
+  --PERFORM ASSERT IS NOT NULL tr;
 
     FOREACH tgp1 IN ARRAY tr.tr_data
     LOOP

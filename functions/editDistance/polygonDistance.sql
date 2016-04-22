@@ -17,9 +17,9 @@ BEGIN
 
   convex_hull := st_collect(g1, convex_hull);
   convex_hull := st_collect(g2, convex_hull);
-  area_of_convexhull := st_area(convex_hull);
+  area_of_convexhull := st_area(st_convexhull(convex_hull));
 
---  RAISE NOTICE 'abc diff: %', area_of_union;
+  --RAISE NOTICE 'union: % convex: %', area_of_union, area_of_convexhull;
 
   RETURN (1 - (area_of_union/area_of_convexhull));
 

@@ -13,8 +13,8 @@ BEGIN
   END IF;
 
   union_area := t_ts_union_area(tr1, tr2);
-  RAISE NOTICE 'intersection_area %', intersection_area;
-  RAISE NOTICE 'union_area %', union_area;
+  --RAISE NOTICE 'intersection_area %', intersection_area;
+  --RAISE NOTICE 'union_area %', union_area;
   IF union_area = 0
   THEN
     RETURN 0;
