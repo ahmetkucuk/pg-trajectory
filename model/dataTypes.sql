@@ -58,14 +58,14 @@ BEGIN
     e_time = findendtime($1);
     s_time = findstarttime($1);
     tr_data = array_sort($1);
-<<<<<<< HEAD
+
     --sampling_interval = INTERVAL '-1 seconds'; --get_sampling_interval(t);
     --RAISE NOTICE '%', tableName;
     INSERT INTO trajectory_table (s_time,e_time,geom_type,bbox,tr_data) VALUES (s_time, e_time, geom_type, bbox, tr_data);
-=======
-    sampling_interval = INTERVAL '-1 seconds'; --get_sampling_interval(t);
-    INSERT INTO trajectory_table (s_time,e_time,geom_type,bbox,sampling_interval,tr_data) VALUES (s_time, e_time, geom_type, bbox, sampling_interval, tr_data);
->>>>>>> b4c47320f439d71428a336b278a8cb2798f478ea
+
+    --sampling_interval = INTERVAL '-1 seconds'; --get_sampling_interval(t);
+    INSERT INTO trajectory_table (s_time,e_time,geom_type,bbox,tr_data) VALUES (s_time, e_time, geom_type, bbox, tr_data);
+
 END
 $BODY$
 LANGUAGE 'plpgsql';

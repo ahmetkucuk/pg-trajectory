@@ -21,6 +21,7 @@ Euclidean_distance FLOAT;
 zQ Geometry[];
 zS Geometry[];
 min_ED FLOAT;
+temp_tgp tg_pair;
 
 BEGIN
  IF tr1.geom_type = 'Point' AND tr2.geom_type = 'Point' THEN
@@ -97,7 +98,29 @@ BEGIN
    RETURN min_ED;
 
   END IF; --len compare
- END IF;--point both? 
+ ELSIF tr1.geom_type = 'Polygon' AND tr2.geom_type = 'Polygon' THEN
+  --Transforming both region trajectories into point trajectories by taking centroid of each polygon
+  len1 = ARRAY_LENGTH(tr1.tr_data, 1);
+  FOR j IN 1..len1 LOOP
+   temp_tgp.t = tr1.tr_data[j].t;
+   temp_tgp.g = ST_Centroid(tr1.tr_data[j].g);
+   tr1.tr_data[j] = temp_tgp;
+  END LOOP;
+  tr1 = _trajectory(tr1.tr_data);
+
+  len2 = ARRAY_LENGTH(tr2.tr_data, 1);
+  FOR j IN 1..len2 LOOP
+   temp_tgp.t = tr2.tr_data[j].t;
+   temp_tgp.g = ST_Centroid(tr2.tr_data[j].g);
+   tr2.tr_data[j] = temp_tgp;
+  END LOOP;
+  tr2 = _trajectory(tr2.tr_data);
+
+  RETURN EuclideanDistance(tr1, tr2);
+
+ ELSE 
+  RAISE EXCEPTION 'Both trajectories must be of same type';
+ END IF;
 END
 $BODY$
 LANGUAGE 'plpgsql';
@@ -164,8 +187,16 @@ BEGIN
    --RAISE NOTICE 'sd_y: %', sd_y;
    --z normalize
    FOR j IN 1..count_of_geoms LOOP
-      z_x = (x_vals[j] - mean_x)/sd_x;
-      z_y = (y_vals[j] - mean_y)/sd_y;
+      IF sd_x = 0 THEN
+       z_x = 0;
+      ELSE
+       z_x = (x_vals[j] - mean_x)/sd_x;
+      END IF;
+      IF sd_y = 0 THEN
+        z_y = 0;
+      ELSE
+       z_y = (y_vals[j] - mean_y)/sd_y;
+      END IF;
       new_point = ST_MakePoint(z_x::double precision, z_y::double precision);
       z_normalized_geom_array[j] = new_point;
       --RAISE NOTICE ' zx --> %', ST_X(z_nomalized_geom_array[j]);
