@@ -3,6 +3,7 @@ CREATE OR REPLACE FUNCTION t_record_at(tr trajectory, t TIMESTAMP) RETURNS Geome
 $BODY$
 DECLARE
   tgp1 tg_pair;
+
 BEGIN
 
   --PERFORM ASSERT IS NOT NULL tr;
@@ -14,7 +15,7 @@ BEGIN
       END IF;
     END LOOP;
 
-    IF tr.geom_type = 'Point' THEN
+    IF tr.geom_type = ST_GeometryType(ST_MakePoint(0,0)) THEN
       RETURN tg_record_at_interpolated(tr, t);
     END IF;
 

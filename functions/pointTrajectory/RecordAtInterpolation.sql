@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS tg_record_at_interpolated( trajectory, TIMESTAMP);
-CREATE OR REPLACE FUNCTION tg_record_at_interpolated(tr trajectory, t TIMESTAMP)
+DROP FUNCTION IF EXISTS t_record_at_interpolated( trajectory, TIMESTAMP);
+CREATE OR REPLACE FUNCTION t_record_at_interpolated(tr trajectory, t TIMESTAMP)
   RETURNS GEOMETRY AS
 $BODY$
 

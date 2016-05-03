@@ -9,9 +9,10 @@ BEGIN
   if tr ISNULL OR tr.tr_data ISNULL THEN
     return 0;
   END IF;
+
   FOREACH tgp IN ARRAY tr.tr_data
     LOOP
-      --RAISE NOTICE 'loop timestamp --> %', area;
+      RAISE NOTICE 'loop timestamp --> %', ST_Area(tgp.g);
       area = area + ST_Area(tgp.g);
   END LOOP;
   RETURN area;

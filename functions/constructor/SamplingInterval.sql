@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS get_sampling_interval( trajectory );
-CREATE OR REPLACE FUNCTION get_sampling_interval(tr trajectory)
+DROP FUNCTION IF EXISTS t_sampling_interval( trajectory );
+CREATE OR REPLACE FUNCTION t_sampling_interval(tr trajectory)
   RETURNS INTERVAL AS
 $BODY$
 DECLARE

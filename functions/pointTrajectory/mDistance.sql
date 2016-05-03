@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS m_distance( trajectory, trajectory);
-CREATE OR REPLACE FUNCTION m_distance(tr1 trajectory, tr2 trajectory)
+DROP FUNCTION IF EXISTS t_m_distance( trajectory, trajectory);
+CREATE OR REPLACE FUNCTION t_m_distance(tr1 trajectory, tr2 trajectory)
   RETURNS FLOAT[] AS
 $BODY$
 DECLARE

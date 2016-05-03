@@ -118,7 +118,7 @@ END
 $BODY$
 LANGUAGE 'plpgsql';
 
---findTimeUnion.sql
+--TimeUnion.sql
 DROP FUNCTION IF EXISTS t_time_union( trajectory, trajectory );
 CREATE OR REPLACE FUNCTION t_time_union(tr1 trajectory, tr2 trajectory)
   RETURNS trajectory AS
@@ -174,7 +174,7 @@ END
 $BODY$
 LANGUAGE 'plpgsql';
 
---findUnion.sql
+--Union.sql
 DROP FUNCTION IF EXISTS t_union( trajectory, trajectory );
 CREATE OR REPLACE FUNCTION t_union(tr1 trajectory, tr2 trajectory)
   RETURNS trajectory AS

@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS tg_distance_travelled( trajectory );
-CREATE OR REPLACE FUNCTION tg_distance_travelled(tr trajectory)
+DROP FUNCTION IF EXISTS t_distance_travelled( trajectory );
+CREATE OR REPLACE FUNCTION t_distance_travelled(tr trajectory)
   RETURNS FLOAT AS
 $BODY$
 
@@ -10,10 +10,9 @@ DECLARE
 
 BEGIN
 
-  if tr ISNULL OR tr.geom_type != 'Point' OR tr.tr_data ISNULL THEN
+  if tr ISNULL OR tr.geom_type != st_geometrytype(st_makepoint(0,0)) OR tr.tr_data ISNULL THEN
     RETURN -1;
   END IF;
-
 
   length = 0;
 

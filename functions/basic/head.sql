@@ -1,8 +1,8 @@
-DROP FUNCTION IF EXISTS head( tg_pairs[] );
+DROP FUNCTION IF EXISTS tg_head( tg_pairs[] );
 
 --Since array indexing mechanism in plpgsql is a mystery,
 -- we shouldn't use static number to get first element
-CREATE OR REPLACE FUNCTION head(tg_pairs tg_pair[])
+CREATE OR REPLACE FUNCTION tg_head(tg_pairs tg_pair[])
   RETURNS tg_pair AS
 $BODY$
 DECLARE
