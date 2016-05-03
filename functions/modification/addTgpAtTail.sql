@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS add_at_tail( tg_pair, trajectory );
-CREATE OR REPLACE FUNCTION add_at_tail(tgp tg_pair, tr trajectory)
+DROP FUNCTION IF EXISTS t_add_tail( tg_pair, trajectory );
+CREATE OR REPLACE FUNCTION t_add_tail(tgp tg_pair, tr trajectory)
   RETURNS trajectory AS
 $BODY$
 DECLARE

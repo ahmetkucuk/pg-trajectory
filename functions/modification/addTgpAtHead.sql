@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS add_at_head( tg_pair, trajectory );
-CREATE OR REPLACE FUNCTION add_at_head(tgp tg_pair, tr trajectory)
+DROP FUNCTION IF EXISTS t_add_head( tg_pair, trajectory );
+CREATE OR REPLACE FUNCTION t_add_head(tgp tg_pair, tr trajectory)
   RETURNS trajectory AS
 $BODY$
 DECLARE

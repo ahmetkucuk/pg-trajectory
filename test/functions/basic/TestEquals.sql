@@ -64,3 +64,4 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 SELECT test_t_equals();
+DROP FUNCTION IF EXISTS test_t_equals();

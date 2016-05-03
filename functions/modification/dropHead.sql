@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS drop_head( trajectory );
-CREATE OR REPLACE FUNCTION drop_head(tr trajectory)
+DROP FUNCTION IF EXISTS t_drop_head( trajectory );
+CREATE OR REPLACE FUNCTION t_drop_head(tr trajectory)
   RETURNS trajectory AS
 $BODY$
 DECLARE

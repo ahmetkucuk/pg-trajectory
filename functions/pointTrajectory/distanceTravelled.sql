@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS t_distance_travelled( trajectory );
-CREATE OR REPLACE FUNCTION t_distance_travelled(tr trajectory)
+DROP FUNCTION IF EXISTS t_distance( trajectory );
+CREATE OR REPLACE FUNCTION t_distance(tr trajectory)
   RETURNS FLOAT AS
 $BODY$
 

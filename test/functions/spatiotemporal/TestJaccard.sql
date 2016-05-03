@@ -33,3 +33,4 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 SELECT test_t_jaccard();
+DROP FUNCTION IF EXISTS test_t_jaccard();

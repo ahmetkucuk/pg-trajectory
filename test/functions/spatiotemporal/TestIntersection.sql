@@ -39,3 +39,4 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 SELECT test_t_intersection();
+DROP FUNCTION IF EXISTS test_t_intersection();

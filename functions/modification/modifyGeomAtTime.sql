@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS modify_at_time( timestamp WITH TIME ZONE, GEOMETRY, trajectory );
-CREATE OR REPLACE FUNCTION modify_at_time(ti timestamp WITH TIME ZONE, ge GEOMETRY, tr trajectory)
+DROP FUNCTION IF EXISTS t_update_geom_at( timestamp WITH TIME ZONE, GEOMETRY, trajectory );
+CREATE OR REPLACE FUNCTION t_update_geom_at(ti timestamp WITH TIME ZONE, ge GEOMETRY, tr trajectory)
   RETURNS trajectory AS
 $BODY$
 DECLARE

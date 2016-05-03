@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS remove_tail( trajectory );
-CREATE OR REPLACE FUNCTION remove_tail(tr trajectory)
+DROP FUNCTION IF EXISTS t_drop_tail( trajectory );
+CREATE OR REPLACE FUNCTION t_drop_tail(tr trajectory)
   RETURNS trajectory AS
 $BODY$
 DECLARE

@@ -46,3 +46,4 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 SELECT test_t_union();
+DROP FUNCTION IF EXISTS test_t_union();
