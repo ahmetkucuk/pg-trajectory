@@ -20,6 +20,7 @@ Euclidean_distance FLOAT;
 zQ Geometry[];
 zS Geometry[];
 min_ED FLOAT;
+temp_tgp tg_pair;
 
 BEGIN
  IF tr1.geom_type = 'Point' AND tr2.geom_type = 'Point' THEN
@@ -96,7 +97,29 @@ BEGIN
    RETURN min_ED;
 
   END IF; --len compare
- END IF;--point both? 
+ ELSIF tr1.geom_type = 'Polygon' AND tr2.geom_type = 'Polygon' THEN
+  --Transforming both region trajectories into point trajectories by taking centroid of each polygon
+  len1 = ARRAY_LENGTH(tr1.tr_data, 1);
+  FOR j IN 1..len1 LOOP
+   temp_tgp.t = tr1.tr_data[j].t;
+   temp_tgp.g = ST_Centroid(tr1.tr_data[j].g);
+   tr1.tr_data[j] = temp_tgp;
+  END LOOP;
+  tr1 = _trajectory(tr1.tr_data);
+
+  len2 = ARRAY_LENGTH(tr2.tr_data, 1);
+  FOR j IN 1..len2 LOOP
+   temp_tgp.t = tr2.tr_data[j].t;
+   temp_tgp.g = ST_Centroid(tr2.tr_data[j].g);
+   tr2.tr_data[j] = temp_tgp;
+  END LOOP;
+  tr2 = _trajectory(tr2.tr_data);
+
+  RETURN EuclideanDistance(tr1, tr2);
+
+ ELSE 
+  RAISE EXCEPTION 'Both trajectories must be of same type';
+ END IF;
 END
 $BODY$
 LANGUAGE 'plpgsql';
