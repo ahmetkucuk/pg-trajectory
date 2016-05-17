@@ -27,6 +27,14 @@ FROM trajectory_table t1, trajectory_table t2
 WHERE (t1.tr).geom_type = 'Polygon' AND (t2.tr).geom_type = 'Polygon') AS F1
 WHERE omax > 0.04;
 
+SELECT (R.A).id, (R.B).id, t_jaccard((R.A).tr, (R.B).tr) FROM (
+SELECT t1 as A, t2 as B, t_omax(t1.tr, t2.tr) as omax
+FROM t_table t1, t_table t2) AS R
+WHERE omax > 0.5;
+
+SELECT * FROM t_table t1, t_table t2 WHERE t1.id = 3000364 ORDER BY t_euclidean_distance(t1.tr, t2.tr) LIMIT 10;
+
+SELECT t_m_distance(t1.tr, t2.tr) FROM t_life_25_point_small_1 t1, t_life_25_point_small_2 t2;
 
 --EDIT DISTANCE FOR POINT
 SELECT tg_edit_distance_2(t1.tr, t2.tr, '1'::NUMERIC, TRUE), (t1.tr).geom_type, (t2.tr).geom_type

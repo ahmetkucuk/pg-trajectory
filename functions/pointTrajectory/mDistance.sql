@@ -8,7 +8,7 @@ DECLARE
   tgp tg_pair;
 BEGIN
 
-  IF tr1.geom_type != 'POLYGON' OR tr1.geom_type != tr2.geom_type THEN
+  IF tr1.geom_type != st_geometrytype(st_makepoint(0,0)) OR tr2.geom_type != st_geometrytype(st_makepoint(0,0)) THEN
     RETURN result;
   END IF;
 
@@ -27,3 +27,5 @@ BEGIN
 END
 $BODY$
 LANGUAGE 'plpgsql';
+
+SELECT (t1.tr).s_time, (t2.tr).s_time FROM t_life_25_point_small_1 t1, t_life_25_point_small_2 t2

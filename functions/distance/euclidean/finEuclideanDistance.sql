@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS EuclideanDistance(trajectory, trajectory);
-CREATE OR REPLACE FUNCTION EuclideanDistance(tr1 trajectory, tr2 trajectory) RETURNS FLOAT AS
+DROP FUNCTION IF EXISTS t_euclidean_distance(trajectory, trajectory);
+CREATE OR REPLACE FUNCTION t_euclidean_distance(tr1 trajectory, tr2 trajectory) RETURNS FLOAT AS
 $BODY$
 DECLARE
 len1 INTEGER;
