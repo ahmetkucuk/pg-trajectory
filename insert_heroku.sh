@@ -1,4 +1,4 @@
-#psql -U postgres -d bdcloud -h dmlab.cs.gsu.edu -p5432 < "r3mot3p8sswo4d" < ./model/dataTypes.sql
+#psql -U postgres -d bdcloud -h dmlab.cs.gsu.edu -p5432 < "******" < ./model/dataTypes.sql
 psql -U postgres -d bdcloud -h dmlab.cs.gsu.edu -p5432 < ./functions/basic/allBasics.sql
 psql -U postgres -d bdcloud -h dmlab.cs.gsu.edu -p5432 < ./functions/basic/area.sql
 psql -U postgres -d bdcloud -h dmlab.cs.gsu.edu -p5432 < ./functions/basic/duration.sql
