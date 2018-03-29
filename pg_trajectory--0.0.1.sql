@@ -20,20 +20,20 @@ $BODY$
 DECLARE
   t trajectory;
 BEGIN
-    t.geom_type = t_type($1);
+    /*t.geom_type = t_type($1);
     IF t.geom_type = 'Invalid' THEN
       RAISE EXCEPTION 'Mixed geometry type is not allowed';
       --RETURN t;
-    END IF;
+    END IF;*/
     t.bbox = tg_mbr($1);
     t.e_time = tg_end_time($1);
     t.s_time = tg_start_time($1);
     t.tr_data = array_sort($1);
-    IF array_length($1, 1) > 1 THEN
+    /*IF array_length($1, 1) > 1 THEN
         t.sampling_interval = (t.e_time - t.s_time) / (array_length($1, 1) - 1);
     ELSE
         t.sampling_interval = INTERVAL '-1 seconds';
-    END IF;
+    END IF;*/
     RETURN t;
 END
 $BODY$
@@ -51,12 +51,11 @@ DECLARE
     sampling_interval INTERVAL;
     bbox GEOMETRY;
 BEGIN
-
-    geom_type = t_type($1);
+    /*geom_type = t_type($1);
     IF geom_type = 'Invalid'THEN
       RAISE EXCEPTION 'Mixed geometry type is not allowed';
       --RETURN t;
-    END IF;
+    END IF;*/
     bbox = tg_mbr($1);
     e_time = tg_end_time($1);
     s_time = tg_start_time($1);
@@ -153,7 +152,7 @@ BEGIN
   RETURN TRUE;
 END
 $BODY$
-LANGUAGE 'plpgsql';DROP FUNCTION IF EXISTS tg_head( tg_pairs[] );
+LANGUAGE 'plpgsql';DROP FUNCTION IF EXISTS tg_head( tg_pair[] );
 
 --Since array indexing mechanism in plpgsql is a mystery,
 -- we shouldn't use static number to get first element
@@ -277,10 +276,11 @@ $BODY$
 LANGUAGE 'plpgsql' ;-- by Craig Ringer
 DROP FUNCTION IF EXISTS array_sort(ANYARRAY);
 CREATE OR REPLACE FUNCTION array_sort (ANYARRAY)
-RETURNS ANYARRAY LANGUAGE SQL
+RETURNS ANYARRAY
 AS $$
 SELECT array_agg(x ORDER BY x) FROM unnest($1) x;
-$$DROP FUNCTION IF EXISTS t_union( trajectory, trajectory );
+$$
+LANGUAGE sql;DROP FUNCTION IF EXISTS t_union( trajectory, trajectory );
 CREATE OR REPLACE FUNCTION t_union(tr1 trajectory, tr2 trajectory)
   RETURNS trajectory AS
 $BODY$
@@ -1101,7 +1101,7 @@ END
 $BODY$
 LANGUAGE 'plpgsql';
 
-SELECT (t1.tr).s_time, (t2.tr).s_time FROM t_life_25_point_small_1 t1, t_life_25_point_small_2 t2DROP FUNCTION IF EXISTS t_record_at_interpolated( trajectory, TIMESTAMP);
+DROP FUNCTION IF EXISTS t_record_at_interpolated( trajectory, TIMESTAMP);
 CREATE OR REPLACE FUNCTION t_record_at_interpolated(tr trajectory, t TIMESTAMP)
   RETURNS GEOMETRY AS
 $BODY$
