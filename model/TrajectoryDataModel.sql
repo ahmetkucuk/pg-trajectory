@@ -20,20 +20,20 @@ $BODY$
 DECLARE
   t trajectory;
 BEGIN
-    /*t.geom_type = t_type($1);
+    t.geom_type = tg_type($1);
     IF t.geom_type = 'Invalid' THEN
       RAISE EXCEPTION 'Mixed geometry type is not allowed';
       --RETURN t;
-    END IF;*/
+    END IF;
     t.bbox = tg_mbr($1);
     t.e_time = tg_end_time($1);
     t.s_time = tg_start_time($1);
     t.tr_data = array_sort($1);
-    /*IF array_length($1, 1) > 1 THEN
+    IF array_length($1, 1) > 1 THEN
         t.sampling_interval = (t.e_time - t.s_time) / (array_length($1, 1) - 1);
     ELSE
         t.sampling_interval = INTERVAL '-1 seconds';
-    END IF;*/
+    END IF;
     RETURN t;
 END
 $BODY$
@@ -52,11 +52,11 @@ DECLARE
     bbox GEOMETRY;
 BEGIN
 
-    /*geom_type = t_type($1);
+    geom_type = tg_type($1);
     IF geom_type = 'Invalid'THEN
       RAISE EXCEPTION 'Mixed geometry type is not allowed';
       --RETURN t;
-    END IF;*/
+    END IF;
     bbox = tg_mbr($1);
     e_time = tg_end_time($1);
     s_time = tg_start_time($1);
