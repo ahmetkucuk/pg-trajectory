@@ -27,5 +27,3 @@ BEGIN
 END
 $BODY$
 LANGUAGE 'plpgsql';
-
-SELECT (t1.tr).s_time, (t2.tr).s_time FROM t_life_25_point_small_1 t1, t_life_25_point_small_2 t2

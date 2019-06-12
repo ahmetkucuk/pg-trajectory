@@ -20,7 +20,7 @@ $BODY$
 DECLARE
   t trajectory;
 BEGIN
-    t.geom_type = t_type($1);
+    t.geom_type = tg_type($1);
     IF t.geom_type = 'Invalid' THEN
       RAISE EXCEPTION 'Mixed geometry type is not allowed';
       --RETURN t;
@@ -52,7 +52,7 @@ DECLARE
     bbox GEOMETRY;
 BEGIN
 
-    geom_type = t_type($1);
+    geom_type = tg_type($1);
     IF geom_type = 'Invalid'THEN
       RAISE EXCEPTION 'Mixed geometry type is not allowed';
       --RETURN t;
